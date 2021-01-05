@@ -72,6 +72,26 @@ router.get("/equipments", async (req, res) => {
   return await FetchHouseEquipments(req, res);
 });
 
+// Fetch House By price Router
+router.get("/price", async (req, res) => {
+  return await FetchHousePrice(req, res);
+});
+
+// Fetch House By Note Router
+router.get("/note", async (req, res) => {
+  return await FetchHouseByNote(req, res);
+});
+
+// Fetch House By tri croissant prix Router
+router.get("/price-croissant", async (req, res) => {
+  return await FetchHousesByPriceCroissant(req, res);
+});
+
+// Fetch House By tri decroissant prix Router
+router.get("/price-decroissant", async (req, res) => {
+  return await FetchHousesByPriceDecroissant(req, res);
+});
+
 //add houses Router
 router.post("/add-house", async(req, res) => {
     return await AddHouses(req, res);

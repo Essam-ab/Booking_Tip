@@ -249,6 +249,104 @@ const FetchHousesByAddress = async (req, res) => {
     }
 };
 
+
+
+
+/**
+ * @DESC To Fetch houses by Note  
+ */
+const FetchHousesByNote = async (req, res) => {
+    const houses = await Houses.find();
+    let housesByNote=[];
+    if (houses) {
+        houses.forEach(house => {
+            if(house.average_note==req.body.average_note)
+                housesByNote.push(house);
+        });
+        if(housesByNote){
+            res.status(200).json({
+            housesByNote,
+            success: true,
+            });
+        } else{
+            res.status(400).json({
+            message: 'couldn\'t find any house with that Note',
+            success: false,
+            });
+        }
+    } else {
+        res.status(400).json({
+        message: 'couldn\'t find any house',
+        success: false,
+        });
+    }
+};
+
+
+
+
+/**
+ * @DESC To Fetch houses by Prix  
+ */
+const FetchHousesByPrice = async (req, res) => {
+    const house = await Houses.find({prix: req.body.prix});
+    if (house) {
+        res.status(200).json({
+        house,
+        success: true,
+        });
+    } else {
+        res.status(400).json({
+        message: 'couldn\'t find any house with that price',
+        success: false,
+        });
+    }
+};
+
+
+
+
+/**
+ * @DESC Trie des maisons par prix croissant 
+ */
+const FetchHousesByPriceCroissant = async(req, res) => {
+    const prod = await House.find({}).sort({price: 1}) ;
+    if (houses) {
+        res.status(200).json({
+            houses,
+            success: true,
+        });
+    } else {
+        res.status(400).json({
+            message: 'couldn\'t find any house',
+            success: false,
+        });
+    }
+
+};
+
+
+
+/**
+ * @DESC Trie des maisons par prix decroissant 
+ */
+const FetchHousesByPriceDecroissant = async(req, res) => {
+    const prod = await House.find({}).sort({price: -1}) ;
+    if (houses) {
+        res.status(200).json({
+            houses,
+            success: true,
+        });
+    } else {
+        res.status(400).json({
+            message: 'couldn\'t find any house',
+            success: false,
+        });
+    }
+
+};
+
+
 /**
  * @DESC To add house
  */
@@ -674,5 +772,9 @@ module.exports = {
     FetchHousesByAddress,
     FetchHousesByDate,
     FetchHousesByRoom,
-    FetchHousesByName
+    FetchHousesByName,
+    FetchHousesByPriceDecroissant,
+    FetchHousesByPriceCroissant,
+    FetchHousesByPrice,
+    FetchHousesByNote
 }
